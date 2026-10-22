@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ───────────────────────────────────────────────── */
+:root {
+  /* Brand Palette */
+  --color-primary: 214 88% 40%;          /* deep medical blue */
+  --color-primary-light: 214 88% 55%;
+  --color-primary-dark: 214 88% 28%;
+  --color-accent: 173 80% 40%;           /* teal accent */
+  --color-accent-light: 173 80% 55%;
+  
+  /* Semantic */
+  --color-success: 142 71% 45%;
+  --color-warning: 38 92% 50%;
+  --color-danger: 0 72% 51%;
+  --color-info: 199 89% 48%;
+
+  /* Surface */
+  --color-bg: 0 0% 98%;
+  --color-surface: 0 0% 100%;
+  --color-surface-2: 220 14% 96%;
+  --color-border: 220 13% 91%;
+  --color-text: 222 47% 11%;
+  --color-text-secondary: 215 20% 45%;
+  --color-text-muted: 215 16% 65%;
+
+  /* Sidebar */
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  --header-height: 64px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+  --shadow-glow: 0 0 0 3px hsl(var(--color-primary) / 0.15);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Transitions */
+  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 120ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --color-bg: 222 47% 8%;
+  --color-surface: 222 47% 11%;
+  --color-surface-2: 222 40% 14%;
+  --color-border: 222 30% 20%;
+  --color-text: 215 25% 93%;
+  --color-text-secondary: 215 15% 65%;
+  --color-text-muted: 215 12% 45%;
+}
+
+/* ─── Base Resets ─────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: hsl(var(--color-bg));
+  color: hsl(var(--color-text));
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ─── Typography ──────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-weight: 700;
+  line-height: 1.25;
+  color: hsl(var(--color-text));
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(var(--color-border)); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--color-text-muted)); }
+
+/* ─── Utilities ───────────────────────────────────────────────────────────── */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-dark {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .gradient-brand {
+    background: linear-gradient(135deg, hsl(var(--color-primary)), hsl(var(--color-accent)));
+  }
+
+  .gradient-brand-subtle {
+    background: linear-gradient(135deg, hsl(var(--color-primary) / 0.08), hsl(var(--color-accent) / 0.08));
+  }
+
+  .shadow-brand {
+    box-shadow: 0 8px 32px hsl(var(--color-primary) / 0.25);
+  }
+
+  .card {
+    background: hsl(var(--color-surface));
+    border: 1px solid hsl(var(--color-border));
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition);
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .stat-card {
+    background: hsl(var(--color-surface));
+    border: 1px solid hsl(var(--color-border));
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, hsl(var(--color-primary)), hsl(var(--color-primary-dark)));
+    color: white;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: all var(--transition);
+    box-shadow: 0 4px 14px hsl(var(--color-primary) / 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px hsl(var(--color-primary) / 0.4);
+  }
+
+  .badge-success {
+    background: hsl(var(--color-success) / 0.1);
+    color: hsl(var(--color-success));
+    border: 1px solid hsl(var(--color-success) / 0.2);
+  }
+
+  .badge-warning {
+    background: hsl(var(--color-warning) / 0.1);
+    color: hsl(38 92% 35%);
+    border: 1px solid hsl(var(--color-warning) / 0.2);
+  }
+
+  .badge-danger {
+    background: hsl(var(--color-danger) / 0.1);
+    color: hsl(var(--color-danger));
+    border: 1px solid hsl(var(--color-danger) / 0.2);
+  }
+
+  .badge-info {
+    background: hsl(var(--color-info) / 0.1);
+    color: hsl(var(--color-info));
+    border: 1px solid hsl(var(--color-info) / 0.2);
+  }
+
+  /* Animated loading shimmer */
+  .shimmer {
+    background: linear-gradient(90deg,
+      hsl(var(--color-surface-2)) 25%,
+      hsl(var(--color-border)) 50%,
+      hsl(var(--color-surface-2)) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* Pulse glow for AI indicator */
+  .pulse-glow {
+    animation: pulseGlow 2s infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 hsl(var(--color-accent) / 0.4); }
+    50% { box-shadow: 0 0 0 8px hsl(var(--color-accent) / 0); }
+  }
+
+  /* Sidebar transition */
+  .sidebar-transition {
+    transition: width var(--transition), transform var(--transition);
+  }
+
+  /* Focus ring */
+  .focus-ring:focus-visible {
+    outline: 2px solid hsl(var(--color-primary));
+    outline-offset: 2px;
+  }
+}
